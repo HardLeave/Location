@@ -1,0 +1,12 @@
+name: Location
+main: Loc.Main
+version: 1.0
+author: HardLeave
+description: A full Location plugin from coordinates to teleporting.
+commands:
+  locate:
+    aliases: [getlocation, loc]
+    description: Get the location from your self or a other player.
+  tp:
+    aliases: [teleport]
+    description: Teleport to players or coordinates.
