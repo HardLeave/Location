@@ -1,0 +1,15 @@
+package Utils;
+
+import net.md_5.bungee.api.ChatColor;
+
+public class ChatUtils {
+
+	
+	public static String Format(String message) {
+		return ChatColor.translateAlternateColorCodes('&', message);
+		
+	}
+	
+	public static String NoPermission = "&cYou don't have permission to execute this command";
+	public static String Console = "&cSorry but only players can use this command!";
+}
