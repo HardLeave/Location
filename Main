@@ -1,0 +1,37 @@
+package Loc;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
+
+import CMD.CMD_Location;
+import CMD.CMD_Teleport;
+import Utils.ChatUtils;
+
+public class Main extends JavaPlugin implements Listener {
+	
+	@Override
+	public void onEnable() {
+		Bukkit.getPluginManager().registerEvents(this, this);
+		RegisterCMD();
+	}
+
+	private void RegisterCMD() {
+		getCommand("locate").setExecutor(new CMD_Location());
+		getCommand("tp").setExecutor(new CMD_Teleport());
+		
+	}
+	
+	
+	
+
+}
