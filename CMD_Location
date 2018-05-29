@@ -1,0 +1,85 @@
+package CMD;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import Utils.ChatUtils;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ClickEvent.Action;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+
+public class CMD_Location implements CommandExecutor {
+
+	
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		Player p = (Player)sender;
+		
+		if(cmd.getName().equalsIgnoreCase("locate") || cmd.getName().equalsIgnoreCase("getlocation") || cmd.getName().equalsIgnoreCase("loc")) {
+			if(sender instanceof Player) {
+					if(args.length == 0 || args == null) {
+						Location loc = p.getLocation();
+						double X = loc.getX();
+						double Y = loc.getY();
+						double Z = loc.getZ();
+						p.sendMessage(ChatUtils.Format("&7---------------------"));
+						p.sendMessage(ChatUtils.Format("&7Youre &alocation&7:" + 
+						"\n"+"&2X: &a" + X + 
+						"\n" + "&2Y: &a" + Y + 
+						"\n" + "&2Z: &a" + Z));
+				        p.sendMessage(ChatUtils.Format("&7---------------------"));
+						
+					} else if(args.length == 1) {
+						if(p.hasPermission("location.get")) {
+					
+						
+						Player t = Bukkit.getPlayer(args[0]);
+						if(t == null) {
+			p.sendMessage(ChatUtils.Format("&4[Error] &7Player is not &cOnline&7."));
+							return true;
+						} 
+						Location loc = t.getLocation();
+						double X = loc.getX();
+						double Y = loc.getY();
+						double Z = loc.getZ();
+						 p.sendMessage(ChatUtils.Format("&7---------------------"));
+						p.sendMessage(ChatUtils.Format("&a" + t.getName() + "'s &7location:"));
+						p.sendMessage(ChatUtils.Format("&2X: &a" + X + 
+						"\n" + "&2Y: &a" + Y + 
+						"\n" + "&2Z: &a" + Z));
+						
+						
+						p.sendMessage(ChatUtils.Format("&7---------------------"));
+						TextComponent tc = new TextComponent();
+						tc.setText(ChatUtils.Format("             &8&l[&a&l&nTP&8&l]"));
+						tc.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/tp " + t.getName()));
+						tc.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.Format("&r&5Click to Teleport.")).create()));
+						p.spigot().sendMessage(tc);
+						p.sendMessage("  ");
+						TextComponent tc2 = new TextComponent();
+						tc2.setText(ChatUtils.Format("         &8&l[&b&l&NTPHERE&8&l]"));
+						tc2.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/tp " + t.getName() + " " + p.getName()));
+						tc2.setHoverEvent(new HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.Format("&r&bClick to Teleport him to you.")).create()));
+						p.spigot().sendMessage(tc2);
+						p.sendMessage(ChatUtils.Format("&7---------------------"));	
+						} else {
+							p.sendMessage(ChatUtils.NoPermission);
+						}
+					}
+				
+			} else {
+				sender.sendMessage(ChatUtils.Console);
+			}
+		}
+		return false;
+	}
+
+}
